@@ -35,7 +35,7 @@ jobs:
           context: .
           push: true
           tags: |
-#            ghcr.io/svvsvv/docker_build:1
+            ghcr.io/svvsvv/docker_build:1
             svvsvv/docker_build:${{ github.sha }}
             svvsvv/docker_build:${{ github.run_number }}
             

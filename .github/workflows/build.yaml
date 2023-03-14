@@ -2,8 +2,8 @@ name: Publish Docker image
 
 on:
   push:
-    tags: 
-      - "v*.*"
+#    tags: 
+#      - "v*.*"
       
 jobs:
   push_to_registries:
@@ -22,35 +22,40 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.docker_build }}
-
+          
+      - name: Login in Docker-Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASS }}
       - name: Build and push docker image
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
           tags: |
-            erixonn/docker_build:${{ github.sha }}
-            erixonn/docker_build:${{ github.run_number }}
+            svvsvv/docker_build:${{ github.sha }}
+            svvsvv/docker_build:${{ github.run_number }}
       - name: Notification in Slack
         uses: rtCamp/action-slack-notify@v2
         if: success()
         env:
-          SLACK_CHANNEL: local_notifications
+          SLACK_CHANNEL: github_notifications
           SLACK_COLOR: 'green'
           SLACK_ICON: https://github.com/rtCamp.png?size=48
           SLACK_MESSAGE: 'Image was succesfully pushed.'
-          SLACK_TITLE: Post Title
-          SLACK_USERNAME: Eugene
+          SLACK_TITLE: Details
+          SLACK_USERNAME: Vitali Snisar
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           
       - name: Notification in Slack [rejection]
         uses: rtCamp/action-slack-notify@v2
         if: failure()
         env:
-          SLACK_CHANNEL: local_notifications
+          SLACK_CHANNEL: github_notifications
           SLACK_COLOR: 'red'
           SLACK_ICON: https://github.com/rtCamp.png?size=48
           SLACK_MESSAGE: 'Image was succesfully pushed.'
-          SLACK_TITLE: Post Title
-          SLACK_USERNAME: Eugene
+          SLACK_TITLE: Details
+          SLACK_USERNAME: Vitali Snisar
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}

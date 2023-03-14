@@ -33,7 +33,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./Dockerfile
+          dockerfile: Dockerfile
           push: true
           tags: |
             ghcr.io/svvsvv/docker_build:1

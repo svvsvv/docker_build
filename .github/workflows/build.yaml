@@ -23,11 +23,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.docker_build }}
           
-#      - name: Login in Docker-Hub
-#        uses: docker/login-action@v2
-#        with:
-#          username: ${{ secrets.DOCKERHUB_USERNAME }}
-#          password: ${{ secrets.DOCKERHUB_PASS }}
+      - name: Login in Docker-Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
           
       - name: Build and push docker image
         uses: docker/build-push-action@v3

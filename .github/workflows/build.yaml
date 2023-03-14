@@ -37,6 +37,7 @@ jobs:
           tags: |
             svvsvv/docker_build:${{ github.sha }}
             svvsvv/docker_build:${{ github.run_number }}
+            ghcr.io/svvsvv/docker_build:${{ github.sha }}
             ghcr.io/svvsvv/docker_build:${{ github.run_number }}
             
       - name: Notification in Slack
